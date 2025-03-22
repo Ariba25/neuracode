@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HerShield - Safety First</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .title {
+            font-size: 42px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+
+        .woman-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .cloud {
+            position: absolute;
+            background: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .cloud-1 { top: 10px; left: 50%; transform: translateX(-50%); }  /* Top */
+        .cloud-2 { right: 10px; top: 50%; transform: translateY(-50%); }  /* Right */
+        .cloud-3 { bottom: 10px; left: 50%; transform: translateX(-50%); } /* Bottom */
+        .cloud-4 { left: 10px; top: 50%; transform: translateY(-50%); }  /* Left */
+
+        .safety-button {
+            margin-top: 20px;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background: #ff4b5c;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s;
+        }
+
+        .safety-button:hover {
+            background: #d84356;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="title">HerShield</h1>
+
+    <div class="container">
+        <div class="cloud cloud-1">Emergency Helpline</div>
+        <div class="cloud cloud-2">Live Location Sharing</div>
+        <div class="cloud cloud-3">Instant Alert</div>
+        <div class="cloud cloud-4">Safe Zones</div>
+
+        <!-- Woman's Image -->
+        <img class="woman-image" src="https://source.unsplash.com/180x180/?strong-woman,portrait" alt="Woman Safety">
+    </div>
+
+    <button class="safety-button">Activate Safety</button>
+
+</body>
+</html>
