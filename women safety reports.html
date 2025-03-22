@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Unsafe Areas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #FF69B4, #FFC0CB);
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, select, textarea, button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #FF69B4;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            background: #FF1493;
+        }
+        .helpline {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .suggestions {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: white;
+            text-align: left;
+            max-height: 150px;
+            overflow-y: auto;
+            display: none;
+            position: absolute;
+            width: 90%;
+            z-index: 1000;
+        }
+        .suggestions div {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .suggestions div:hover {
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Report an Unsafe Area</h2>
+        <p>Your report is anonymous. Help others stay safe.</p>
+        
+        <label for="location">Location:</label>
+        <input type="text" id="location" placeholder="Enter area name or address" oninput="showSuggestions()">
+        <div class="suggestions" id="suggestionBox"></div>
+        
+        <label for="incident">
+        <label for="address">Full Address:</label>
+        <input type="text" id="address" placeholder="Enter full address of the place">Type of Incident:</label>
+        <select id="incident">
+            <option value="" disabled selected>Select an incident</option>
+            <option value="harassment">Harassment</option>
+            <option value="stalking">Stalking</option>
+            <option value="assault">Assault</option>
+            <option value="rape">Rape</option>
+            <option value="other">Other</option>
+        </select>
+        
+        <label for="details">Details (Optional):</label>
+        <textarea id="details" rows="4" placeholder="Describe what happened..."></textarea>
+        
+        <button onclick="submitReport()">Submit Report</button>
+    </div>
+    
+    <p class="helpline">If you are in danger, call emergency services immediately.</p>
+    
+    <script>
+        const areas = [
+            "Navrangpura", "Paldi", "Bopal", "Satellite", "Maninagar", "Vastrapur", "Gota", "Chandkheda", "Naroda", "Vasna", 
+            "Ellis Bridge", "Thaltej", "Memnagar", "Gulbai Tekra", "Isanpur", "Jodhpur", "Shahibaug", "Ambavadi", "Naranpura", "Gheekanta"
+        ];
+
+        function showSuggestions() {
+            let input = document.getElementById('location').value.toLowerCase();
+            let suggestionBox = document.getElementById('suggestionBox');
+            suggestionBox.innerHTML = "";
+            
+            if (input.length === 0) {
+                suggestionBox.style.display = "none";
+                return;
+            }
+
+            let filteredAreas = areas.filter(area => area.toLowerCase().startsWith(input));
+            
+            filteredAreas.forEach(area => {
+                let div = document.createElement("div");
+                div.textContent = area;
+                div.onclick = function() {
+                    document.getElementById('location').value = area;
+                    suggestionBox.style.display = "none";
+                };
+                suggestionBox.appendChild(div);
+            });
+
+            suggestionBox.style.display = filteredAreas.length > 0 ? "block" : "none";
+        }
+
+        function submitReport() {
+            let location = document.getElementById('location').value;
+            let incident = document.getElementById('incident').value;
+            let details = document.getElementById('details').value;
+            
+            if (!location) {
+                alert("Please enter a location.");
+                return;
+            }
+            
+            let reportData = {
+                location: location,
+                incident: incident,
+                details: details
+            };
+            
+            console.log("Report Submitted:", reportData);
+            alert("Thank you for your report. Stay safe!");
+            
+            document.getElementById('location').value = "";
+            document.getElementById('incident').value = "harassment";
+            document.getElementById('details').value = "";
+            document.getElementById('suggestionBox').style.display = "none";
+        }
+    </script>
+</body>
+</html>

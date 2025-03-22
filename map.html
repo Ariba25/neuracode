@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Threat Detection</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        #map { height: 500px; width: 100%; }
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .legend { background: white; padding: 10px; line-height: 1.5; }
+        .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }
+    </style>
+</head>
+<body>
+    <h2>Ahmedabad Risk Zones</h2>
+    <p>Different areas are color-coded based on safety ratings.</p>
+    <div id="map"></div>
+
+    <script>
+        var map = L.map('map').setView([23.0225, 72.5714], 12);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        var riskLevels = {
+            "red": "#FF0000",
+            "orange": "#FFA500",
+            "yellow": "#FFFF00",
+            "green": "#008000"
+        };
+
+        var areas = [
+            { name: "Maninagar", coords: [23.0115, 72.5983], risk: "red" },
+            { name: "Satellite", coords: [23.0305, 72.5170], risk: "orange" },
+            { name: "Bapunagar", coords: [23.0489, 72.6469], risk: "red" },
+            { name: "Naroda", coords: [23.0752, 72.6529], risk: "orange" },
+            { name: "Vastrapur", coords: [23.0370, 72.5285], risk: "yellow" },
+            { name: "Navrangpura", coords: [23.0426, 72.5621], risk: "yellow" },
+            { name: "SG Highway", coords: [23.0700, 72.5150], risk: "green" },
+            { name: "Shahibaug", coords: [23.0482, 72.5921], risk: "orange" },
+            { name: "Isanpur", coords: [22.9931, 72.5947], risk: "red" },
+            { name: "Gota", coords: [23.1072, 72.5108], risk: "yellow" },
+            { name: "Khani Pini Bazaar, Manek Chowk", coords: [23.0276, 72.5806], risk: "red" },
+            { name: "Near Vidyanagar School, Usmanpura", coords: [23.0500, 72.5626], risk: "orange" },
+            { name: "Azad Society Cross Road", coords: [23.0301, 72.5305], risk: "yellow" },
+            { name: "Near St Xavier’s College", coords: [23.0300, 72.5626], risk: "yellow" },
+            { name: "Shastrinagar Cross Roads", coords: [23.0500, 72.5700], risk: "orange" },
+            { name: "Mahalaxmi Five Roads", coords: [23.0222, 72.5717], risk: "red" },
+            { name: "Near LJ College Road", coords: [23.0300, 72.5100], risk: "green" },
+            { name: "Near Shah-e-Alam Dargah", coords: [23.0100, 72.6000], risk: "red" },
+            { name: "Near HB Kapadia School Lane", coords: [23.0400, 72.5500], risk: "yellow" },
+            { name: "Near PT College, Paldi", coords: [23.0200, 72.5500], risk: "yellow" },
+            { name: "Sabji Market, Vikas Gruh Road, Paldi", coords: [23.0250, 72.5500], risk: "orange" },
+            { name: "Near Girls Hostel, Gujarat College", coords: [23.0300, 72.5600], risk: "orange" },
+            { name: "Near Ramnagar Girls School", coords: [23.0350, 72.5600], risk: "yellow" },
+            { name: "GTU College (Girls College)", coords: [23.0400, 72.5500], risk: "yellow" },
+            { name: "Gujarat University Road and Vicinity", coords: [23.0416, 72.5623], risk: "orange" },
+            { name: "New Ranip Sabji Market", coords: [23.0800, 72.5500], risk: "green" },
+            { name: "Near Aroma College", coords: [23.0450, 72.5400], risk: "green" }
+        ];
+
+        areas.forEach(area => {
+            L.circle(area.coords, {
+                color: "black",
+                weight: 2,
+                fillColor: riskLevels[area.risk],
+                fillOpacity: 0.6,
+                radius: 1000
+            }).addTo(map).bindPopup(`<b>${area.name}</b><br>Risk Zone: ${area.risk.toUpperCase()}`);
+        });
+
+        var legend = L.control({ position: "bottomright" });
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create("div", "legend");
+            div.innerHTML = "<b>Risk Zones</b><br>";
+            for (var key in riskLevels) {
+                div.innerHTML += `<i style="background:${riskLevels[key]}"></i> ${key.toUpperCase()}<br>`;
+            }
+            return div;
+        };
+        legend.addTo(map);
+    </script>
+</body>
+</html>
