@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Location Map</title>
+
+    <!-- Leaflet.js for the map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    <style>
+        body {
+            display: flex;
+        }
+
+        #map {
+            width: 75%;
+            height: 500px;
+        }
+
+        #table-container {
+            width: 25%;
+            height: 500px;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #f4f4f4;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div id="table-container">
+        <h2>Nearby Locations</h2>
+
+        <h3>Police Stations</h3>
+        <table id="police-stations">
+            <tr><th>Name</th><th>Distance</th></tr>
+        </table>
+
+        <h3>Schools</h3>
+        <table id="schools">
+            <tr><th>Name</th><th>Distance</th></tr>
+        </table>
+
+        <h3>Industries</h3>
+        <table id="industries">
+            <tr><th>Name</th><th>Distance</th></tr>
+        </table>
+    </div>
+
+    <div id="map"></div>
+
+    <script>
+        var map = L.map('map').setView([40.748817, -73.985428], 13);  // Default center, will be updated to user location
+
+        // Add OpenStreetMap tile layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Function to handle geolocation and display the user location
+        function onLocationFound(e) {
+            var userLat = e.latlng.lat;
+            var userLon = e.latlng.lng;
+
+            // Set the map view to the user's location
+            map.setView([userLat, userLon], 13);
+
+            // Add a marker for the user's location
+            L.marker([userLat, userLon]).addTo(map)
+                .bindPopup("You are here: " + userLat + ", " + userLon)
+                .openPopup();
+
+            // Fetch points of interest (POI) within a 20 km radius using the Overpass API
+            fetchNearbyPOIs(userLat, userLon);
+        }
+
+        // Check if geolocation is available and get the user's location
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                // Get user's latitude and longitude
+                var userLat = position.coords.latitude;
+                var userLon = position.coords.longitude;
+
+                // Update the map view to user's location and add a marker
+                map.setView([userLat, userLon], 13);
+
+                // Add a marker for the user's location
+                L.marker([userLat, userLon]).addTo(map)
+                    .bindPopup("You are here: " + userLat + ", " + userLon)
+                    .openPopup();
+
+                // Fetch points of interest (POI) within a 20 km radius using the Overpass API
+                fetchNearbyPOIs(userLat, userLon);
+            }, function(error) {
+                console.log("Geolocation error: " + error.message);
+            });
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+
+        // Function to fetch nearby POIs (industries, schools, police stations)
+        function fetchNearbyPOIs(lat, lon) {
+            var overpassUrl = 'https://overpass-api.de/api/interpreter?data=[out:json];(node["amenity"="police"](around:20000,' + lat + ',' + lon + ');node["amenity"="school"](around:20000,' + lat + ',' + lon + ');node["amenity"="industrial"](around:20000,' + lat + ',' + lon + '););out;';
+
+            fetch(overpassUrl)
+                .then(response => response.json())
+                .then(data => {
+                    var policeTable = document.getElementById("police-stations");
+                    var schoolTable = document.getElementById("schools");
+                    var industryTable = document.getElementById("industries");
+
+                    // Clear previous table data
+                    policeTable.innerHTML = '<tr><th>Name</th><th>Distance</th></tr>';
+                    schoolTable.innerHTML = '<tr><th>Name</th><th>Distance</th></tr>';
+                    industryTable.innerHTML = '<tr><th>Name</th><th>Distance</th></tr>';
+
+                    data.elements.forEach(function(element) {
+                        if (element.lat && element.lon) {
+                            var poiLat = element.lat;
+                            var poiLon = element.lon;
+                            var poiName = element.tags.name || 'Unnamed';
+                            var poiType = element.tags.amenity;
+                            var distance = calculateDistance(lat, lon, poiLat, poiLon);  // Calculate distance from the user
+
+                            // Add data to the appropriate table
+                            if (poiType === 'police') {
+                                addRowToTable(policeTable, poiName, distance);
+                            } else if (poiType === 'school') {
+                                addRowToTable(schoolTable, poiName, distance);
+                            } else if (poiType === 'industrial') {
+                                addRowToTable(industryTable, poiName, distance);
+                            }
+
+                            // Add a marker for each POI (police, school, industrial)
+                            L.marker([poiLat, poiLon]).addTo(map)
+                                .bindPopup(poiName + "<br>" + poiType)
+                                .openPopup();
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching POI data:', error);
+                });
+        }
+
+        // Function to add a row to the table
+        function addRowToTable(table, name, distance) {
+            var row = table.insertRow();
+            var cellName = row.insertCell(0);
+            var cellDistance = row.insertCell(1);
+            cellName.innerHTML = name;
+            cellDistance.innerHTML = distance.toFixed(2) + " km";
+        }
+
+        // Function to calculate distance between two lat/lon points
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+            var R = 6371; // Radius of the Earth in km
+            var dLat = toRad(lat2 - lat1);
+            var dLon = toRad(lon2 - lon1);
+            var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            var distance = R * c;
+            return distance;
+        }
+
+        // Function to convert degrees to radians
+        function toRad(degrees) {
+            return degrees * (Math.PI / 180);
+        }
+    </script>
+</body>
+</html>

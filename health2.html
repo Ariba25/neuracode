@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HerHealthHub - Women's Health</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      color: #333;
+      background: #f9f9f9;
+    }
+
+    header {
+      background: linear-gradient(135deg, #ff7eb9, #ff758c);
+      padding: 1rem 0;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header .logo img {
+      height: 50px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li {
+      display: inline;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #ffd700;
+    }
+
+    .hero {
+      background: url('https://via.placeholder.com/1500x800') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .hero-content p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    .btn {
+      background: #ff7eb9;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #ff758c;
+      transform: translateY(-5px);
+    }
+
+    .about, .topics, .contact {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .about img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .topic-cards {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: #fff;
+      padding: 1.5rem;
+      margin: 1rem;
+      border-radius: 10px;
+      width: 30%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact input, .contact textarea {
+      margin: 0.5rem 0;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: border-color 0.3s ease;
+    }
+
+    .contact input:focus, .contact textarea:focus {
+      border-color: #ff7eb9;
+      outline: none;
+    }
+
+    .contact button {
+      background: #ff7eb9;
+      color: #fff;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .contact button:hover {
+      background: #ff758c;
+    }
+
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1rem 0;
+      margin-top: 2rem;
+    }
+
+    /* Period Tracker Styles */
+    .tracker-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: none; /* Hidden by default */
+    }
+
+    .tracker-container h2 {
+      color: #ff7eb9;
+      margin-bottom: 1rem;
+    }
+
+    .tracker-container label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: bold;
+    }
+
+    .tracker-container input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .tracker-container button {
+      background: #ff7eb9;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .tracker-container button:hover {
+      background: #ff758c;
+    }
+
+    .tracker-container .result {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    /* Mood Tracker Styles */
+    .mood-tracker-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: none; /* Hidden by default */
+    }
+
+    .mood-tracker-container h2 {
+      color: #ff7eb9;
+      margin-bottom: 1rem;
+    }
+
+    .mood-tracker-container label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: bold;
+    }
+
+    .mood-tracker-container select,
+    .mood-tracker-container input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .mood-tracker-container button {
+      background: #ff7eb9;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .mood-tracker-container button:hover {
+      background: #ff758c;
+    }
+
+    .mood-tracker-container .mood-log {
+      margin-top: 2rem;
+    }
+
+    .mood-log ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .mood-log ul li {
+      background: #f9f9f9;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Nutrition Guide Styles */
+    .nutrition-guide-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: none; /* Hidden by default */
+    }
+
+    .nutrition-guide-container h2 {
+      color: #ff7eb9;
+      margin-bottom: 1rem;
+    }
+
+    .nutrition-guide-container h3 {
+      color: #ff758c;
+      margin-top: 1.5rem;
+    }
+
+    .nutrition-guide-container ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .nutrition-guide-container ul li {
+      background: #f9f9f9;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="https://www.shutterstock.com/image-vector/womens-health-vector-illustration-word-260nw-1824798584.jpg" alt="HerHealthHub Logo">
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#topics">Health Topics</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Empowering Women Through Health and Wellness</h1>
+      <p>Your trusted source for women's health information.</p>
+      <a href="#topics" class="btn">Explore Topics</a>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section id="about" class="about">
+    <div class="about-content">
+      <h2>About Us</h2>
+      <p>At HerHealthHub, we are dedicated to providing accurate, accessible, and empowering health information for women of all ages.</p>
+      <img src="https://via.placeholder.com/800x400" alt="About Us">
+    </div>
+  </section>
+
+  <!-- Health Topics Section -->
+  <section id="topics" class="topics">
+    <h2>Health Topics</h2>
+    <div class="topic-cards">
+      <div class="card" onclick="showPeriodTracker()">
+        <h3>Reproductive Health</h3>
+        <p>Learn about menstrual health, fertility, and more.</p>
+      </div>
+      <div class="card" onclick="showMoodTracker()">
+        <h3>Mental Wellness</h3>
+        <p>Discover tips for managing stress and anxiety.</p>
+      </div>
+      <div class="card" onclick="showNutritionGuide()">
+        <h3>Nutrition & Diet</h3>
+        <p>Explore healthy eating habits and recipes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Period Tracker Section -->
+  <div id="period-tracker" class="tracker-container">
+    <h2>Period Tracker</h2>
+    <label for="last-period">Last Period Start Date:</label>
+    <input type="date" id="last-period" required>
+
+    <label for="cycle-length">Average Cycle Length (in days):</label>
+    <input type="number" id="cycle-length" required>
+
+    <button onclick="calculateNextPeriod()">Calculate Next Period</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <!-- Mood Tracker Section -->
+  <div id="mood-tracker" class="mood-tracker-container">
+    <h2>Mood Tracker</h2>
+    <label for="mood-date">Date:</label>
+    <input type="date" id="mood-date" required>
+
+    <label for="mood">Select Your Mood:</label>
+    <select id="mood" required>
+      <option value="happy">😊 Happy</option>
+      <option value="sad">😢 Sad</option>
+      <option value="angry">😠 Angry</option>
+      <option value="anxious">😰 Anxious</option>
+      <option value="calm">😌 Calm</option>
+    </select>
+
+    <label for="notes">Notes:</label>
+    <textarea id="notes" placeholder="Add any notes about your mood..."></textarea>
+
+    <button onclick="logMood()">Log Mood</button>
+
+    <div class="mood-log">
+      <h3>Mood Log</h3>
+      <ul id="mood-log-list"></ul>
+    </div>
+  </div>
+
+  <!-- Nutrition Guide Section -->
+  <div id="nutrition-guide" class="nutrition-guide-container">
+    <h2>Nutrition Guide</h2>
+    <h3>Pre-Period Diet</h3>
+    <ul>
+      <li>🍌 <strong>Bananas:</strong> Rich in potassium to reduce bloating.</li>
+      <li>🥬 <strong>Leafy Greens:</strong> High in magnesium to ease cramps.</li>
+      <li>🍫 <strong>Dark Chocolate:</strong> Boosts serotonin and improves mood.</li>
+      <li>🥜 <strong>Nuts and Seeds:</strong> Provide healthy fats and reduce cravings.</li>
+    </ul>
+
+    <h3>During Period Diet</h3>
+    <ul>
+      <li>🍠 <strong>Sweet Potatoes:</strong> High in fiber to stabilize blood sugar.</li>
+      <li>🐟 <strong>Salmon:</strong> Rich in omega-3s to reduce inflammation.</li>
+      <li>🍵 <strong>Herbal Teas:</strong> Soothe cramps and relax the body.</li>
+      <li>🍚 <strong>Whole Grains:</strong> Provide sustained energy.</li>
+    </ul>
+
+    <h3>Post-Period Diet</h3>
+    <ul>
+      <li>🥚 <strong>Eggs:</strong> High in protein to rebuild energy.</li>
+      <li>🍓 <strong>Berries:</strong> Packed with antioxidants to boost immunity.</li>
+      <li>🥛 <strong>Yogurt:</strong> Probiotics for gut health.</li>
+      <li>🥦 <strong>Broccoli:</strong> Rich in iron to replenish lost nutrients.</li>
+    </ul>
+  </div>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <h2>Contact Us</h2>
+    <form id="contact-form">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Your Email" required>
+      <textarea id="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2023 HerHealthHub. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Smooth Scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Form Submission Handling
+    document.getElementById('contact-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      if (name && email && message) {
+        alert(`Thank you, ${name}! Your message has been sent.`);
+        document.getElementById('contact-form').reset();
+      } else {
+        alert('Please fill out all fields.');
+      }
+    });
+
+    // Dynamic Year in Footer
+    document.querySelector('footer p').innerHTML += ` &copy; ${new Date().getFullYear()} HerHealthHub. All rights reserved.`;
+
+    // Show Period Tracker
+    function showPeriodTracker() {
+      const tracker = document.getElementById('period-tracker');
+      const moodTracker = document.getElementById('mood-tracker');
+      const nutritionGuide = document.getElementById('nutrition-guide');
+      tracker.style.display = 'block';
+      moodTracker.style.display = 'none';
+      nutritionGuide.style.display = 'none';
+      tracker.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Calculate Next Period
+    function calculateNextPeriod() {
+      const lastPeriod = document.getElementById('last-period').value;
+      const cycleLength = parseInt(document.getElementById('cycle-length').value);
+
+      if (!lastPeriod || isNaN(cycleLength)) {
+        alert('Please fill out all fields.');
+        return;
+      }
+
+      const lastPeriodDate = new Date(lastPeriod);
+      const nextPeriodDate = new Date(lastPeriodDate);
+      nextPeriodDate.setDate(lastPeriodDate.getDate() + cycleLength);
+
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const result = `Your next period is expected on: <strong>${nextPeriodDate.toLocaleDateString('en-US', options)}</strong>`;
+      document.getElementById('result').innerHTML = result;
+    }
+
+    // Show Mood Tracker
+    function showMoodTracker() {
+      const moodTracker = document.getElementById('mood-tracker');
+      const tracker = document.getElementById('period-tracker');
+      const nutritionGuide = document.getElementById('nutrition-guide');
+      moodTracker.style.display = 'block';
+      tracker.style.display = 'none';
+      nutritionGuide.style.display = 'none';
+      moodTracker.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Log Mood
+    function logMood() {
+      const moodDate = document.getElementById('mood-date').value;
+      const mood = document.getElementById('mood').value;
+      const notes = document.getElementById('notes').value;
+
+      if (!moodDate || !mood) {
+        alert('Please fill out all fields.');
+        return;
+      }
+
+      const moodLogList = document.getElementById('mood-log-list');
+      const moodEntry = document.createElement('li');
+      moodEntry.innerHTML = `
+        <strong>${moodDate}</strong>: ${mood}
+        ${notes ? `<br><em>${notes}</em>` : ''}
+      `;
+      moodLogList.appendChild(moodEntry);
+
+      // Clear form
+      document.getElementById('mood-date').value = '';
+      document.getElementById('mood').value = 'happy';
+      document.getElementById('notes').value = '';
+    }
+
+    // Show Nutrition Guide
+    function showNutritionGuide() {
+      const nutritionGuide = document.getElementById('nutrition-guide');
+      const tracker = document.getElementById('period-tracker');
+      const moodTracker = document.getElementById('mood-tracker');
+      nutritionGuide.style.display = 'block';
+      tracker.style.display = 'none';
+      moodTracker.style.display = 'none';
+      nutritionGuide.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

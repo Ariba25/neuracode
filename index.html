@@ -17,6 +17,11 @@
             background-color: #f0f8ff;
         }
 
+        .button-container {
+            display: flex; /* Align buttons side by side */
+            gap: 20px; /* Space between buttons */
+        }
+
         button {
             padding: 15px 30px;
             font-size: 18px;
@@ -71,8 +76,11 @@
 </head>
 <body>
 
-    <!-- Button to toggle on/off -->
-    <button id="alertButton" onclick="toggleAlert()">Turn On</button>
+    <!-- Button container with only one button -->
+    <div class="button-container">
+        <!-- Button to toggle on/off -->
+        <button id="alertButton" onclick="toggleAlert()">Turn On</button>
+    </div>
 
     <!-- Custom Modal -->
     <div id="customModal" class="modal">
@@ -113,7 +121,7 @@
                         const phoneNumber = "tel:+919714788336"; // Example phone number
                         window.location.href = phoneNumber; // This will trigger the phone dial
                     };
-                }, 10000); // 2000 milliseconds = 10 seconds
+                }, 3000); // 10000 milliseconds = 10 seconds
 
                 // Change button text to "Turn Off"
                 button.textContent = "Turn Off";
@@ -123,8 +131,8 @@
                 clearInterval(alertInterval);
                 alert("Alerts have been stopped.");
 
-                // Change button text back to "Click Me"
-                button.textContent = "Turn on";
+                // Change button text back to "Turn On"
+                button.textContent = "Turn On";
                 isAlertOn = false;
             }
         }
@@ -132,6 +140,3 @@
 
 </body>
 </html>
-
-
-

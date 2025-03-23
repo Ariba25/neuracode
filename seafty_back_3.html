@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HerHealthHub - Women's Health</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      color: #333;
+      background: #f9f9f9;
+    }
+
+    header {
+      background: linear-gradient(135deg, #ff7eb9, #ff758c);
+      padding: 1rem 0;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    header .logo img {
+      height: 50px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    nav ul li {
+      display: inline;
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #ffd700;
+    }
+
+    .hero {
+      background: url('https://via.placeholder.com/1500x800') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .hero-content p {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+      animation: fadeIn 3s ease-in-out;
+    }
+
+    .btn {
+      background: #ff7eb9;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #ff758c;
+      transform: translateY(-5px);
+    }
+
+    .about, .topics, .contact {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .about img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .topic-cards {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: #fff;
+      padding: 1.5rem;
+      margin: 1rem;
+      border-radius: 10px;
+      width: 30%;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact form {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contact input, .contact textarea {
+      margin: 0.5rem 0;
+      padding: 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      transition: border-color 0.3s ease;
+    }
+
+    .contact input:focus, .contact textarea:focus {
+      border-color: #ff7eb9;
+      outline: none;
+    }
+
+    .contact button {
+      background: #ff7eb9;
+      color: #fff;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .contact button:hover {
+      background: #ff758c;
+    }
+
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1rem 0;
+      margin-top: 2rem;
+    }
+
+    /* Period Tracker Styles */
+    .tracker-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: none; /* Hidden by default */
+    }
+
+    .tracker-container h2 {
+      color: #ff7eb9;
+      margin-bottom: 1rem;
+    }
+
+    .tracker-container label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: bold;
+    }
+
+    .tracker-container input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .tracker-container button {
+      background: #ff7eb9;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .tracker-container button:hover {
+      background: #ff758c;
+    }
+
+    .tracker-container .result {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    /* Mood Tracker Styles */
+    .mood-tracker-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: none; /* Hidden by default */
+    }
+
+    .mood-tracker-container h2 {
+      color: #ff7eb9;
+      margin-bottom: 1rem;
+    }
+
+    .mood-tracker-container label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: bold;
+    }
+
+    .mood-tracker-container select,
+    .mood-tracker-container input {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .mood-tracker-container button {
+      background: #ff7eb9;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .mood-tracker-container button:hover {
+      background: #ff758c;
+    }
+
+    .mood-tracker-container .mood-log {
+      margin-top: 2rem;
+    }
+
+    .mood-log ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .mood-log ul li {
+      background: #f9f9f9;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Nutrition Guide Styles */
+    .nutrition-guide-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      display: none; /* Hidden by default */
+    }
+
+    .nutrition-guide-container h2 {
+      color: #ff7eb9;
+      margin-bottom: 1rem;
+    }
+
+    .nutrition-guide-container h3 {
+      color: #ff758c;
+      margin-top: 1.5rem;
+    }
+
+    .nutrition-guide-container ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .nutrition-guide-container ul li {
+      background: #f9f9f9;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="HerHealthHub Logo">
+    </div>
+  </header>
+
+  <!-- Health Topics Section -->
+  <section id="topics" class="topics">
+    <h2>Women's Safety</h2>
+    <div class="topic-cards">
+      <div class="card" onclick="window.location.href='route2.html'">
+        <h3>Safe Route</h3>
+        <p>Learn about menstrual health, fertility, and more.</p>
+      </div>
+      <div class="card" onclick="window.location.href='women_safety_reports.html'">
+        <h3>Report an Area</h3>
+        <p>Discover tips for managing stress and anxiety.</p>
+      </div>
+      <div class="card" onclick="window.location.href='index.html'">
+        <h3>Personal Safety</h3>
+        <p>Explore healthy eating habits and recipes.</p>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

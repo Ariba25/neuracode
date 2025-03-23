@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empowerment - Rise to Your Potential</title>
+
+    <!-- Link to External CSS -->
+    <link rel="stylesheet" href="empower.css">
+
+    <script>
+        // JavaScript to toggle the visibility of a specific quote
+        const empowermentQuotes = [
+            "The only way to do great work is to love what you do.",
+            "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+            "Don’t watch the clock; do what it does. Keep going.",
+            "Don’t wait. The time will never be just right.",
+            "Your only limit is your mind."
+        ];
+
+        function changeQuote() {
+            const randomQuote = empowermentQuotes[Math.floor(Math.random() * empowermentQuotes.length)];
+            document.getElementById("quote-display").innerText = randomQuote;
+        }
+
+        function goToMap() {
+            window.location.href = 'map_2.html';  // Navigates to map_2.html
+        }
+    </script>
+
+    <style>
+        /* General Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        /* Header Styling - Green Background */
+        .header {
+    background: linear-gradient(135deg, #27ae60, #2ecc71); /* Green gradient background */
+    color: white;
+    padding: 8px 20px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .header img {
+    width: 250px; /* Adjust logo size */
+    height: 250px; /* Make the height the same as width to form a square */
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover; /* Ensures the image covers the circle without stretching */
+}
+
+        header h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        header button {
+            background-color: #2980b9;
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        header button:hover {
+            background-color: #3498db;
+        }
+
+        /* Right-aligned Map Button */
+        .map-button {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background-color: #e67e22;
+            color: white;
+            padding: 30px 40px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .map-button:hover {
+            background-color: #f39c12;
+        }
+
+        /* Quote Section Styling */
+        .quote-section {
+            background-color: #ecf0f1;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .quote-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .quote-section p {
+            font-size: 1.5em;
+            color: #34495e;
+            font-style: italic;
+        }
+
+        /* Call to Action Section Styling */
+        .cta-section {
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+
+        .cta-section button {
+            background-color: #2ecc71;
+            color: white;
+            padding: 12px 3px;
+            border: none;
+            font-size: 1.3em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .cta-section button:hover {
+            background-color: #27ae60;
+        }
+
+        /* Footer Styling */
+        .footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Women Empowerment Links Section */
+        .empowerment-links {
+            background-color: #f4f4f4;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .empowerment-links h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .empowerment-links ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .empowerment-links ul li {
+            margin: 10px 0;
+        }
+
+        .empowerment-links ul li a {
+            text-decoration: none;
+            color: #2980b9;
+            font-size: 1.2em;
+        }
+
+        .empowerment-links ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Media Query for Smaller Screens */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5em;
+            }
+
+            .quote-section p {
+                font-size: 1.2em;
+            }
+
+            .cta-section h2 {
+                font-size: 2em;
+            }
+
+            .cta-section p {
+                font-size: 1.3em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section with Green Color -->
+    <header class="header">
+        <!-- Logo on the Left -->
+        <img src="women.jpeg" alt="Empowerment Logo">
+
+        <div class="header-container">
+            <h1>Rise to Your Potential</h1>
+            <p>Empower Yourself, Empower Others</p>
+            <button onclick="changeQuote()">Inspire Me!</button>
+        </div>
+
+        <!-- Map Button on the Right Side -->
+        <button class="map-button" onclick="goToMap()">Map</button>
+    </header>
+
+    <!-- Empowerment Quotes Section -->
+    <section class="quote-section">
+        <h2>Empowering Quotes</h2>
+        <p id="quote-display">"The only way to do great work is to love what you do."</p>
+
+<section class="quote-section">
+
+ <!----   <div class="quote-content">
+        <!-- Quote Text on the Left -->
+  <!----      <p id="quote-display">"The only way to do great work is to love what you do."</p>
+        <!-- Image on the Right -->
+   <!----     <img src="https://worldbank.scene7.com/is/image/worldbankprod/Womens-girls-empowerment-main?wid=780&hei=439&qlt=85,0&resMode=sharp" alt="Empowerment Image" class="quote-image">
+    </div>
+</section>
+
+
+-->
+
+
+
+    </section>
+
+    <!-- Women Empowerment Resources Section -->
+    <section class="empowerment-links">
+        <h2>Women Empowerment Resources</h2>
+        <ul>
+            <li><a href="https://www.weforum.org/agenda/2020/12/10-best-initiatives-for-women-empowerment/" target="_blank">World Economic Forum - Best Initiatives for Women Empowerment</a></li>
+            <li><a href="https://www.globalfundforwomen.org/" target="_blank">Global Fund for Women</a></li>
+            <li><a href="https://www.girlup.org/" target="_blank">Girl Up</a></li>
+            <li><a href="https://www.unwomen.org/" target="_blank">UN Women</a></li>
+            <li><a href="https://www.aauw.org/" target="_blank">AAUW (American Association of University Women)</a></li>
+            <li><a href="https://www.internationalwomensday.com/" target="_blank">International Women's Day</a></li>
+        </ul>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-section">
+        <h2>Join the Empowerment Movement</h2>
+        <p>
+            Are you ready to take the next step toward empowerment? Join our community of like-minded individuals who are on a journey to unlock their full potential and help others along the way.
+        </p>
+        <button>Join Us</button>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <p>&copy; 2025 Empowerment. All Rights Reserved.</p>
+    </footer>
+
+
+    
+</body>
+
+</html>

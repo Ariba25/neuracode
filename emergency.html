@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dial Button</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #ff69b4; /* Pink background */
+            border: none;
+            border-radius: 5px;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #ff1493; /* Darker pink on hover */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Button to dial a number -->
+    <button id="dialButton" onclick="dialNumber()">Emergency</button>
+
+    <script>
+        function dialNumber() {
+            // This will open the dialer with the phone number
+            const phoneNumber = "tel:+919714788336"; // Example phone number
+            window.location.href = phoneNumber;
+        }
+    </script>
+
+</body>
+</html>

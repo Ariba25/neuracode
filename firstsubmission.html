@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HERSHIELD - Women Empowerment</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #FF69B4, #FFC0CB);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        .top-bar {
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to right, #333, black);
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        h1 {
+            font-size: 55px;
+            font-weight: bold;
+            color: white;
+            font-family: 'Georgia', serif;
+            margin: 0;
+        }
+        .container {
+            position: relative;
+            width: 800px;
+            height: 600px;
+        }
+
+        /* Central Circle */
+        .center-circle {
+            width: 220px;
+            height: 220px;
+            background-color: #FFB6C1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.4);
+            text-align: center;
+        }
+        .center-circle img {
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+        }
+
+        /* Cloud Styling */
+        button {
+            position: absolute;
+            width: 180px;
+            height: 100px;
+            background: #FF69B4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.4);
+            text-align: center;
+            font-family: cursive;
+            padding: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #FF4081;
+            transform: scale(1.1);
+            box-shadow: 8px 8px 20px rgba(0,0,0,0.5);
+        }
+
+        /* Cloud Positions */
+        .cloud-1 { top: 40px; left: 80px; }  /* Health */
+        .cloud-2 { top: 40px; right: 80px; } /* Empowerment */
+        .cloud-3 { bottom: 40px; left: 80px; } /* Safety */
+        .cloud-4 { bottom: 40px; right: 80px; } /* Financial Literacy */
+
+        /* Curved Connecting Lines */
+        .line {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            border: 4px solid black;
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .line-1 { top: 120px; left: 170px; border-bottom: none; border-left: none; }
+        .line-2 { top: 120px; right: 170px; border-bottom: none; border-right: none; }
+        .line-3 { bottom: 120px; left: 170px; border-top: none; border-left: none; }
+        .line-4 { bottom: 120px; right: 170px; border-top: none; border-right: none; }
+
+        /* Button in top right corner of the top-bar */
+        .top-right-btn {
+            position: absolute;
+            top: 50%;
+            right: 10px;  /* Adjust the right position */
+            transform: translateY(-50%);  /* Vertically center the button */
+            background-color: #b41313;
+            padding: 15px 30px;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .top-right-btn:hover {
+            background-color: #b70303;
+            transform: scale(1.05);
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="top-bar">
+        <h1>HerShield</h1>
+        <!-- Button in the top-right corner -->
+        <button class="top-right-btn" onclick="window.location.href='tel:+917990808357';">EMERGENCY</button>
+
+    </div>
+    <div class="container">
+        <!-- Central Circle with Logo -->
+        <div class="center-circle">
+            <img src="women.jpeg" alt="HERSHIELD Logo">
+        </div>
+
+        <!-- Curved Lines -->
+        <div class="line line-1"></div>
+        <div class="line line-2"></div>
+        <div class="line line-3"></div>
+        <div class="line line-4"></div>
+
+        <!-- Button Elements -->
+        <button class="cloud cloud-1" onclick="window.location.href='health2.html';">Health</button>
+        <button class="cloud cloud-2" onclick="window.location.href='empower.html';">Empowerment</button>
+        <button class="cloud cloud-3" onclick="window.location.href='seafty_back_3.html';">Safety</button>
+        <button class="cloud cloud-4" onclick="window.location.href='FinancialAi.html';">Financial Literacy</button>
+    </div>
+</body>
+</html>
